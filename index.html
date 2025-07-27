@@ -1,6 +1,295 @@
-[
-{
-"version":"1",
-"link":"https//darkzonemm.blogspot.com/"
-}
-]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hentai Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #ff66c4 100%);
+      color: #eee;
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    .search-bar-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .search-bar {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: none;
+      font-size: 1.08em;
+      background: #222;
+      color: #ffd6ec;
+      box-shadow: 0 2px 12px #ff66c488;
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+    .search-bar:focus {
+      box-shadow: 0 4px 18px #ff66c4aa;
+      background: #2b2d42;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 10px;
+    }
+    .card {
+      background: linear-gradient(135deg, #222 60%, #ff66c4 100%);
+      padding: 1.2rem 1rem 1rem 1rem;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px #ff66c444, 0 2px 8px #0007;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.03) rotate(-1deg);
+      box-shadow: 0 12px 36px #ff66c488;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #ff66c488;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      color: #ffd6ec;
+      font-size: 1.18em;
+      margin: 0 0 6px 0;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .card p {
+      color: #fff;
+      font-size: 0.98em;
+      margin: 0 0 8px 0;
+    }
+    .downloads a {
+      display: inline-block;
+      margin: 3px 6px 3px 0;
+      color: #fff;
+      background: linear-gradient(90deg, #ff66c4 60%, #ffd6ec 100%);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.98em;
+      box-shadow: 0 2px 8px #ff66c488;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .downloads a:hover {
+      background: linear-gradient(90deg, #ffd6ec 0%, #ff66c4 100%);
+      transform: scale(1.08);
+      color: #222;
+    }
+    select, button {
+      padding: 7px 14px;
+      margin: 0 5px 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      background: #222;
+      color: #ffd6ec;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #ff66c488;
+      transition: background 0.2s;
+    }
+    select:focus, button:focus {
+      background: #2b2d42;
+      outline: none;
+    }
+    .pagination {
+      margin-top: 24px;
+      text-align: center;
+    }
+    .pagination button {
+      background: #222;
+      color: #ffd6ec;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 8px;
+      margin: 0 4px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #ff66c488;
+      border: none;
+      padding: 7px 14px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pagination button.active {
+      background: linear-gradient(90deg, #ff66c4 60%, #ffd6ec 100%);
+      color: #222;
+      transform: scale(1.08);
+    }
+    .category-filter {
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .category-pill {
+      background: linear-gradient(90deg, #ff66c4 60%, #ffd6ec 100%);
+      color: #222;
+      font-weight: 600;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 22px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ff66c488;
+      transition: background 0.2s, transform 0.2s;
+      outline: none;
+    }
+    .category-pill.active {
+      background: linear-gradient(90deg, #ffd6ec 0%, #ff66c4 100%);
+      color: #fff;
+      transform: scale(1.08);
+      box-shadow: 0 4px 18px #ff66c4aa;
+    }
+    .category-pill:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;font-size:2.1em;color:#ff66c4;font-family:'Poppins',Arial,sans-serif;margin-bottom:18px;text-shadow:0 2px 12px #ff66c488;">✨ Hentai Download Gallery</h2>
+  <div class="search-bar-row">
+    <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search by title..." autocomplete="off">
+  </div>
+  <div class="category-filter">
+    <label style="font-weight:600;color:#ffd6ec;">Filter by Category:</label>
+    <div id="categoryPills" class="category-pills"></div>
+  </div>
+  <div id="gallery" class="gallery"></div>
+  <div class="pagination" id="pagination"></div>
+
+  <script>
+    const sheetAPI = "https://sheets.googleapis.com/v4/spreadsheets/1yFi2LC02KhBQZ4m6kfzad_1FBsom9QDABPUHS7RKOJM/values/download!A2:D100?key=AIzaSyDZqMYFCHG17qgCbrFhyoEIdrR9ua86348";
+    let items = [];
+    const itemsPerPage = 6;
+    let currentPage = 1;
+
+    function parseEpisodes(raw) {
+      if (!raw) return '';
+      const episodes = raw.split('|').map(ep => {
+        const [epTitle, ...links] = ep.split(':');
+        const linkParts = links.join(':').split(',').map(l => {
+          const [name, url] = l.split('=');
+          return `<a href="${url?.trim()}" target="_blank">${name?.trim()}</a>`;
+        }).join('');
+        return `<strong>${epTitle.trim()}</strong><br>${linkParts}<br>`;
+      });
+      return `<div class="downloads">${episodes.join('<hr>')}</div>`;
+    }
+
+    let filteredItems = [];
+
+    function renderGallery(data) {
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+      const start = (currentPage - 1) * itemsPerPage;
+      const paginatedItems = data.slice(start, start + itemsPerPage);
+      for (const item of paginatedItems) {
+        const [title, category, image, episodes] = item;
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${image}" alt="${title}" loading="lazy">
+          <h3>${title}</h3>
+          <p><strong>Category:</strong> ${category}</p>
+          ${parseEpisodes(episodes)}
+        `;
+        gallery.appendChild(card);
+      }
+    }
+
+    function handleSearch() {
+      const value = document.getElementById("searchInput").value.toLowerCase();
+      // Find active category
+      const activeCatBtn = document.querySelector('.category-pill.active');
+      let filtered = items;
+      if (activeCatBtn && activeCatBtn.textContent.toLowerCase() !== 'all') {
+        filtered = filtered.filter(i => i[1] === activeCatBtn.textContent);
+      }
+      filteredItems = filtered.filter(i => i[0].toLowerCase().includes(value));
+      currentPage = 1;
+      renderGallery(filteredItems);
+      renderPagination(filteredItems);
+    }
+
+    function renderPagination(data) {
+      const totalPages = Math.ceil(data.length / itemsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = '';
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add("active");
+        btn.onclick = () => { currentPage = i; renderGallery(data); renderPagination(data); };
+        pagination.appendChild(btn);
+      }
+    }
+
+    function populateCategoryFilter(data) {
+      const pills = document.getElementById("categoryPills");
+      pills.innerHTML = '';
+      const categories = ["all", ...Array.from(new Set(data.map(i => i[1]))).sort()];
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "category-pill" + (cat === "all" ? " active" : "");
+        btn.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+        btn.onclick = () => {
+          document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          let filtered = cat === "all" ? items : items.filter(i => i[1] === cat);
+          // If search is active, filter by search too
+          const searchValue = document.getElementById("searchInput").value.toLowerCase();
+          if (searchValue) {
+            filtered = filtered.filter(i => i[0].toLowerCase().includes(searchValue));
+          }
+          filteredItems = filtered;
+          currentPage = 1;
+          renderGallery(filteredItems);
+          renderPagination(filteredItems);
+        };
+        pills.appendChild(btn);
+      });
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch(sheetAPI);
+        const json = await res.json();
+        items = json.values.reverse(); // Show latest first
+        filteredItems = items;
+        populateCategoryFilter(items);
+        renderGallery(items);
+        renderPagination(items);
+      } catch (err) {
+        document.getElementById("gallery").innerHTML = "<p>❌ Failed to load data.</p>";
+        console.error(err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("searchInput").addEventListener("input", handleSearch);
+    });
+
+    loadData();
+  </script>
+</body>
+</html>

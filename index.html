@@ -2,260 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hentai Gallery</title>
+  <title>Hentai Gallery - Post Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    @media (max-width: 900px) {
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 1.2rem;
-      }
-      .card {
-        border-radius: 18px;
-        padding: 1rem 0.7rem 0.7rem 0.7rem;
-      }
-      .card img {
-        height: 140px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-      }
-      .category-pills {
-        gap: 10px;
-        padding: 8px 0;
-        border-radius: 16px;
-      }
-      .category-pill {
-        padding: 8px 18px;
-        font-size: 1em;
-        border-radius: 18px;
-      }
-      .search-bar {
-        padding: 10px 14px;
-        border-radius: 12px;
-        font-size: 1em;
-      }
-      .pagination button {
-        padding: 7px 12px;
-        font-size: 1em;
-        border-radius: 8px;
-      }
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 0.5rem;
-      }
-      .gallery {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-      }
-      .card {
-        border-radius: 12px;
-        padding: 0.7rem 0.3rem 0.7rem 0.3rem;
-      }
-      .card img {
-        height: 110px;
-        border-radius: 8px;
-        margin-bottom: 7px;
-      }
-      .category-pills {
-        gap: 6px;
-        padding: 5px 0;
-        border-radius: 10px;
-      }
-      .category-pill {
-        padding: 6px 12px;
-        font-size: 0.92em;
-        border-radius: 12px;
-      }
-      .search-bar {
-        padding: 7px 10px;
-        border-radius: 8px;
-        font-size: 0.92em;
-      }
-      .pagination button {
-        padding: 6px 8px;
-        font-size: 0.92em;
-        border-radius: 6px;
-      }
-    }
     body {
       font-family: 'Poppins', Arial, sans-serif;
-      background: #f7f7f7;
+      background: linear-gradient(135deg, #232526 0%, #4a90e2 100%);
       color: #222;
       margin: 0;
       padding: 1.5rem;
       min-height: 100vh;
     }
-    .search-bar-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 18px;
+    h2 {
+      text-align: center;
+      font-size: 2em;
+      color: #4a90e2;
+      margin-bottom: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 12px #4a90e244;
     }
     .search-bar {
       width: 100%;
       max-width: 420px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1em;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: none;
+      font-size: 1.08em;
       background: #fff;
-      color: #222;
-      box-shadow: none;
+      color: #4a90e2;
+      box-shadow: 0 2px 12px #4a90e244;
       outline: none;
-      transition: border 0.2s;
+      margin-bottom: 24px;
+      transition: box-shadow 0.2s;
     }
     .search-bar:focus {
-      border: 1.5px solid #888;
+      box-shadow: 0 4px 18px #4a90e288;
+      background: #eaf6ff;
     }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
       margin-top: 10px;
     }
     .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px #0001;
-      border: 1px solid #e0e0e0;
+      background: linear-gradient(135deg, #fff 60%, #eaf6ff 100%);
+      padding: 1.2rem 1rem 1rem 1rem;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px #4a90e222, 0 2px 8px #0002;
       position: relative;
       overflow: hidden;
-      padding: 1.2rem 1rem 1rem 1rem;
-      transition: box-shadow 0.2s, border 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover {
-      box-shadow: 0 8px 32px #0002;
-      border: 1.5px solid #bbb;
-      transform: translateY(-2px) scale(1.02);
+      transform: scale(1.03) translateY(-2px);
+      box-shadow: 0 12px 36px #4a90e244;
     }
     .card img {
       width: 100%;
-      height: 160px;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #4a90e244;
+      margin-bottom: 10px;
+      height: 180px;
       object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px #0001;
-      margin-bottom: 12px;
     }
     .card h3 {
-      color: #222;
-      font-size: 1.12em;
-      margin: 0 0 8px 0;
+      color: #4a90e2;
+      font-size: 1.18em;
+      margin: 0 0 6px 0;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
     .card p {
-      color: #555;
-      font-size: 1em;
-      margin: 0 0 10px 0;
+      color: #222;
+      font-size: 0.98em;
+      margin: 0 0 8px 0;
     }
     .downloads a {
       display: inline-block;
       margin: 3px 6px 3px 0;
       color: #fff;
-      background: #4a90e2;
+      background: linear-gradient(90deg, #4a90e2 60%, #4a90e2 100%);
       padding: 7px 14px;
-      border-radius: 5px;
+      border-radius: 8px;
       font-weight: 600;
       text-decoration: none;
-      font-size: 1em;
-      box-shadow: 0 1px 4px #4a90e222;
+      font-size: 0.98em;
+      box-shadow: 0 2px 8px #4a90e244;
       transition: background 0.2s, transform 0.2s;
     }
     .downloads a:hover {
-      background: #222;
-      transform: scale(1.07);
-      color: #fff;
-    }
-    select, button {
-      padding: 7px 14px;
-      margin: 0 5px 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      background: #fff;
-      color: #222;
-      font-weight: 500;
-      box-shadow: none;
-      transition: border 0.2s;
-    }
-    select:focus, button:focus {
-      border: 1.5px solid #888;
-      outline: none;
-    }
-    .pagination {
-      margin-top: 24px;
-      text-align: center;
-    }
-    .pagination button {
-      background: #fff;
-      color: #222;
-      cursor: pointer;
-      font-size: 1em;
-      border-radius: 6px;
-      margin: 0 4px;
-      font-weight: 500;
-      box-shadow: none;
-      border: 1px solid #ccc;
-      padding: 7px 14px;
-      transition: border 0.2s;
-    }
-    .pagination button.active {
-      background: #222;
-      color: #fff;
+      background: linear-gradient(90deg, #eaf6ff 0%, #4a90e2 100%);
       transform: scale(1.08);
-    }
-    .category-filter {
-      margin-bottom: 18px;
-      text-align: center;
-    }
-    .category-pills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      padding: 6px 0;
-      border-radius: 8px;
-    }
-    .category-pill {
-      background: #eee;
       color: #222;
-      font-weight: 500;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      box-shadow: none;
-      transition: border 0.2s;
-      outline: none;
-      letter-spacing: 0.2px;
-      position: relative;
-      z-index: 1;
     }
-    .category-pill.active {
-      background: #222;
-      color: #fff;
-      transform: scale(1.08);
+    .downloads hr {
+      border: 0;
+      border-top: 1px solid #eaf6ff;
+      margin: 8px 0;
     }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center;font-size:2.1em;color:#ff66c4;font-family:'Poppins',Arial,sans-serif;margin-bottom:18px;text-shadow:0 2px 12px #ff66c488;">✨ Hentai Download Gallery</h2>
-  <div class="search-bar-row">
-    <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search by title..." autocomplete="off">
+  <h2>🔗 Hentai Post Viewer</h2>
+  <div style="max-width:420px;margin:0 auto 18px auto;">
+    <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search by title or category...">
   </div>
-  <div class="category-filter">
-    <div id="categoryPills" class="category-pills"></div>
-  </div>
-  <div id="gallery" class="gallery"></div>
-  <div class="pagination" id="pagination"></div>
+  <div class="gallery" id="gallery"></div>
 
   <script>
-    const sheetAPI = "https://sheets.googleapis.com/v4/spreadsheets/1yFi2LC02KhBQZ4m6kfzad_1FBsom9QDABPUHS7RKOJM/values/download!A2:D100?key=AIzaSyDZqMYFCHG17qgCbrFhyoEIdrR9ua86348";
-    let items = [];
-    const itemsPerPage = 6;
-    let currentPage = 1;
+    const sheetAPI = "https://sheets.googleapis.com/v4/spreadsheets/1yFi2LC02KhBQZ4m6kfzad_1FBsom9QDABPUHS7RKOJM/values/download!A2:E100?key=AIzaSyDZqMYFCHG17qgCbrFhyoEIdrR9ua86348";
+
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
 
     function parseEpisodes(raw) {
       if (!raw) return '';
@@ -265,123 +127,80 @@
           const [name, url] = l.split('=');
           return `<a href="${url?.trim()}" target="_blank">${name?.trim()}</a>`;
         }).join('');
-        return `<strong>${epTitle.trim()}</strong><br>${linkParts}<br>`;
+        return `<strong>${epTitle.trim()}</strong><br>${linkParts}`;
       });
       return `<div class="downloads">${episodes.join('<hr>')}</div>`;
     }
 
-    let filteredItems = [];
-
-    function renderGallery(data) {
+    async function loadPosts() {
+      const postId = getParam("post");
       const gallery = document.getElementById("gallery");
-      gallery.innerHTML = "";
-      const start = (currentPage - 1) * itemsPerPage;
-      const paginatedItems = data.slice(start, start + itemsPerPage);
-      for (const item of paginatedItems) {
-        const [title, category, image, episodes] = item;
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <img src="${image}" alt="${title}" loading="lazy">
-          <h3>${title}</h3>
-          <p><strong>Category:</strong> ${category}</p>
-          ${parseEpisodes(episodes)}
-        `;
-        gallery.appendChild(card);
-      }
-    }
 
-    function handleSearch() {
-      const value = document.getElementById("searchInput").value.toLowerCase();
-      // Find active category
-      const activeCatBtn = document.querySelector('.category-pill.active');
-      let filtered = items;
-      if (activeCatBtn && activeCatBtn.textContent.toLowerCase() !== 'all') {
-        filtered = filtered.filter(i => i[1] === activeCatBtn.textContent);
-      }
-      filteredItems = filtered.filter(i => i[0].toLowerCase().includes(value));
-      currentPage = 1;
-      renderGallery(filteredItems);
-      renderPagination(filteredItems);
-    }
-
-    function renderPagination(data) {
-      const totalPages = Math.ceil(data.length / itemsPerPage);
-      const pagination = document.getElementById("pagination");
-      pagination.innerHTML = '';
-      for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        if (i === currentPage) btn.classList.add("active");
-        btn.onclick = () => { currentPage = i; renderGallery(data); renderPagination(data); };
-        pagination.appendChild(btn);
-      }
-    }
-
-    function populateCategoryFilter(data) {
-      const pills = document.getElementById("categoryPills");
-      pills.innerHTML = '';
-      // Split multi-category pills into individual pills
-      let rawCategories = data.map(i => i[1]);
-      let splitCategories = rawCategories.flatMap(cat => cat.split(',').map(c => c.trim())).filter(Boolean);
-      let uniqueCategories = Array.from(new Set(splitCategories.map(c => c.toLowerCase())));
-      uniqueCategories.sort();
-      const categories = ["all", ...uniqueCategories];
-      categories.forEach(cat => {
-        const btn = document.createElement("button");
-        btn.className = "category-pill" + (cat === "all" ? " active" : "");
-        btn.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-        btn.onclick = () => {
-          document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          // Hide all pills except 'All' and selected
-          document.querySelectorAll('.category-pill').forEach(b => {
-            if (btn.textContent.toLowerCase() === 'all') {
-              b.style.display = '';
-            } else {
-              b.style.display = (b === btn || b.textContent.toLowerCase() === 'all') ? '' : 'none';
-            }
-          });
-          let filtered;
-          if (cat === "all") {
-            filtered = items;
-          } else {
-            filtered = items.filter(i => i[1].split(',').map(c => c.trim().toLowerCase()).includes(cat));
-          }
-          // If search is active, filter by search too
-          const searchValue = document.getElementById("searchInput").value.toLowerCase();
-          if (searchValue) {
-            filtered = filtered.filter(i => i[0].toLowerCase().includes(searchValue));
-          }
-          filteredItems = filtered;
-          currentPage = 1;
-          renderGallery(filteredItems);
-          renderPagination(filteredItems);
-        };
-        pills.appendChild(btn);
-      });
-    }
-
-    async function loadData() {
       try {
         const res = await fetch(sheetAPI);
         const json = await res.json();
-        items = json.values.reverse(); // Show latest first
-        filteredItems = items;
-        populateCategoryFilter(items);
-        renderGallery(items);
-        renderPagination(items);
+        const rows = json.values.reverse();
+
+        const filteredRows = postId ? rows.filter(row => row[0] === postId) : rows;
+
+        if (filteredRows.length === 0) {
+          gallery.innerHTML = `<p style='text-align:center;'>❌ No matching post(s) found.</p>`;
+          return;
+        }
+
+        gallery.innerHTML = filteredRows.map(row => {
+          const [id, title, category, image, episodes] = row;
+          return `
+            <div class="card">
+              <img src="${image}" alt="${title}" loading="lazy">
+              <h3>${title}</h3>
+              <p><strong>Category:</strong> ${category}</p>
+              ${parseEpisodes(episodes)}
+            </div>
+          `;
+        }).join('');
+
       } catch (err) {
-        document.getElementById("gallery").innerHTML = "<p>❌ Failed to load data.</p>";
+        gallery.innerHTML = "<p style='text-align:center;'>❌ Failed to load post(s).</p>";
         console.error(err);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("searchInput").addEventListener("input", handleSearch);
-    });
+    function filterPosts() {
+      const value = document.getElementById("searchInput").value.toLowerCase();
+      const postId = getParam("post");
+      const gallery = document.getElementById("gallery");
+      fetch(sheetAPI)
+        .then(res => res.json())
+        .then(json => {
+          const rows = json.values.reverse();
+          let filteredRows = postId ? rows.filter(row => row[0] === postId) : rows;
+          if (value) {
+            filteredRows = filteredRows.filter(row =>
+              (row[1] && row[1].toLowerCase().includes(value)) ||
+              (row[2] && row[2].toLowerCase().includes(value))
+            );
+          }
+          if (filteredRows.length === 0) {
+            gallery.innerHTML = `<p style='text-align:center;'>❌ No matching post(s) found.</p>`;
+            return;
+          }
+          gallery.innerHTML = filteredRows.map(row => {
+            const [id, title, category, image, episodes] = row;
+            return `
+              <div class="card">
+                <img src="${image}" alt="${title}" loading="lazy">
+                <h3>${title}</h3>
+                <p><strong>Category:</strong> ${category}</p>
+                ${parseEpisodes(episodes)}
+              </div>
+            `;
+          }).join('');
+        });
+    }
 
-    loadData();
+    document.addEventListener("DOMContentLoaded", loadPosts);
+    document.getElementById("searchInput").addEventListener("input", filterPosts);
   </script>
 </body>
 </html>
